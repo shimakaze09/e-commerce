@@ -1,4 +1,3 @@
-using API.Data;
 using Core.Interfaces;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
