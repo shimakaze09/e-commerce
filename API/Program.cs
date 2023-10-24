@@ -1,9 +1,6 @@
-using API.Errors;
-using API.Helpers;
+using API.Extensions;
 using API.Middleware;
-using Core.Interfaces;
 using Infrastructure.Data;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,50 +8,19 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<StoreContext>(options =>
-{
-    options.UseSqlite(
-        builder.Configuration.GetConnectionString("DefaultConnection"));
-});
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
-builder.Services.AddScoped(typeof(IGenericRepository<>),
-    typeof(GenericRepository<>));
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-builder.Services.Configure<ApiBehaviorOptions>(options =>
-{
-    options.InvalidModelStateResponseFactory = actionContext =>
-    {
-        var errors = actionContext.ModelState
-            .Where(e => e.Value.Errors.Count > 0)
-            .SelectMany(x => x.Value.Errors).Select(x => x.ErrorMessage)
-            .ToArray();
-
-        var errorResponse = new ApiValidationErrorResponse
-        {
-            Errors = errors
-        };
-
-        return new BadRequestObjectResult(errorResponse);
-    };
-});
+builder.Services.AddApplicationServices(builder.Configuration);
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 app.UseMiddleware<ExceptionMiddleware>();
 
+app.UseStatusCodePagesWithReExecute("/errors/{0}");
+
 app.UseSwagger();
 app.UseSwaggerUI();
 
-
-app.UseStatusCodePagesWithReExecute("/errors/{0}");
-
 app.UseStaticFiles();
-
-app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
@@ -69,9 +35,9 @@ try
     await context.Database.MigrateAsync();
     await StoreContextSeed.SeedAsync(context);
 }
-catch (Exception e)
+catch (Exception ex)
 {
-    logger.LogError(e, "An error occured during migration");
+    logger.LogError(ex, "An error occured during migration");
 }
 
 app.Run();
