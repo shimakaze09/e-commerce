@@ -35,6 +35,12 @@
           <button class="btn btn-outline-success">Reset</button>
         </div>
       </div>
+
+      <div class="row">
+        <div class="col-4" *ngFor="let product of products">
+          <app-product-item></app-product-item>
+        </div>
+      </div>
     </section>
   </div>
 </div>
