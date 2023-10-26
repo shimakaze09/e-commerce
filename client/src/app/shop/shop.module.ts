@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
 import { ShopComponent } from './shop.component';
 import { ProductItemComponent } from './product-item/product-item.component';
 
@@ -13,8 +13,9 @@ import { ProductItemComponent } from './product-item/product-item.component';
     exports: [
         ShopComponent
     ],
-    imports: [
-        CommonModule
-    ]
+  imports: [
+    CommonModule,
+    NgOptimizedImage
+  ]
 })
 export class ShopModule { }
