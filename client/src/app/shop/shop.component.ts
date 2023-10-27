@@ -1,9 +1,9 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {Product} from "../shared/models/product";
-import {ShopService} from "./shop.service";
-import {Brand} from "../shared/models/brand";
-import {Type} from "../shared/models/type";
-import {ShopParams} from "../shared/models/shopParams";
+import {Brand} from '../shared/models/brand';
+import {Product} from '../shared/models/product';
+import {ShopParams} from '../shared/models/shopParams';
+import {Type} from '../shared/models/type';
+import {ShopService} from './shop.service';
 
 @Component({
   selector: 'app-shop',
@@ -11,7 +11,7 @@ import {ShopParams} from "../shared/models/shopParams";
   styleUrls: ['./shop.component.scss']
 })
 export class ShopComponent implements OnInit {
-  @ViewChild('Search') searchTerm?: ElementRef;
+  @ViewChild('search') searchTerm?: ElementRef;
   products: Product[] = [];
   brands: Brand[] = [];
   types: Type[] = [];
@@ -39,7 +39,6 @@ export class ShopComponent implements OnInit {
         this.shopParams.pageNumber = response.pageIndex;
         this.shopParams.pageSize = response.pageSize;
         this.totalCount = response.count;
-        console.log(this.totalCount)
       },
       error: error => console.log(error)
     })
