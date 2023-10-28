@@ -1,5 +1,4 @@
-﻿using System.Linq.Expressions;
-using Core.Entities;
+﻿using Core.Entities;
 
 namespace Core.Specifications;
 
@@ -24,7 +23,6 @@ public class
             productParams.PageSize);
 
         if (!string.IsNullOrEmpty(productParams.Sort))
-        {
             switch (productParams.Sort)
             {
                 case "priceAsc":
@@ -37,7 +35,6 @@ public class
                     AddOrderBy(n => n.Name);
                     break;
             }
-        }
     }
 
     public ProductsWithTypesAndBrandsSpecification(int id) : base(x =>

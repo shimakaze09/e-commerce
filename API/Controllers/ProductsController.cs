@@ -5,18 +5,16 @@ using AutoMapper;
 using Core.Entities;
 using Core.Interfaces;
 using Core.Specifications;
-using Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers;
 
 public class ProductsController : BaseApiController
 {
-    private readonly IGenericRepository<Product> _productsRepo;
-    private readonly IGenericRepository<ProductBrand> _productBrandsRepo;
-    private readonly IGenericRepository<ProductType> _productTypeRepo;
     private readonly IMapper _mapper;
+    private readonly IGenericRepository<ProductBrand> _productBrandsRepo;
+    private readonly IGenericRepository<Product> _productsRepo;
+    private readonly IGenericRepository<ProductType> _productTypeRepo;
 
     public ProductsController(IGenericRepository<Product> productsRepo,
         IGenericRepository<ProductBrand> productBrandsRepo,
