@@ -1,6 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {BreadcrumbService} from "xng-breadcrumb";
-
 
 @Component({
   selector: 'app-root',
@@ -10,13 +8,9 @@ import {BreadcrumbService} from "xng-breadcrumb";
 export class AppComponent implements OnInit {
   title = 'Skinet';
 
-  constructor(private bc: BreadcrumbService) {
+  constructor() {
   }
 
   ngOnInit(): void {
-    this.bc.breadcrumbs$.subscribe({
-      next: response => console.log(response),
-      error: error => console.log(error)
-    })
   }
 }

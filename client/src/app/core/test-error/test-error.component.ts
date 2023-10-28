@@ -36,7 +36,7 @@ export class TestErrorComponent {
   }
 
   get400ValidationError() {
-    this.http.get(this.baseUrl + 'buggy/badrequest/fortytwo').subscribe({
+    this.http.get(this.baseUrl + 'products/fortytwo').subscribe({
       next: response => console.log(response),
       error: error => {
         console.log(error);
