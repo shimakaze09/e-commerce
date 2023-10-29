@@ -1,11 +1,5 @@
 import {Injectable} from '@angular/core';
-import {
-  HttpRequest,
-  HttpHandler,
-  HttpEvent,
-  HttpInterceptor,
-  HttpErrorResponse
-} from '@angular/common/http';
+import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {catchError, Observable, throwError} from 'rxjs';
 import {NavigationExtras, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
@@ -33,6 +27,7 @@ export class ErrorInterceptor implements HttpInterceptor {
           if (error.status === 404) {
             this.router.navigateByUrl('/not-found');
           }
+          ;
           if (error.status === 500) {
             const navigationExtras: NavigationExtras = {state: {error: error.error}};
             this.router.navigateByUrl('/server-error', navigationExtras);
