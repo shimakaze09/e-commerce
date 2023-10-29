@@ -36,11 +36,12 @@ export class BasketService {
     return this.basketSource.value;
   }
 
-  addItemToBasket(item: Product, quantity = 1) {
-    const itemToAdd: BasketItem = this.mapProductItemToBasketItem(item);
+  addItemToBasket(item: Product | BasketItem, quantity = 1) {
+    if (this.isProduct(item)) item = this.mapProductItemToBasketItem(item);
+    console.log(item);
     const basket = this.getCurrentBasketValue() ?? this.createBasket();
     basket.items = this.addOrUpdateItem(basket.items, item, quantity);
-
+    this.setBasket(basket);
   }
 
   private mapProductItemToBasketItem(item: Product): BasketItem {
@@ -69,5 +70,9 @@ export class BasketService {
       items.push(itemToAdd);
     }
     return items;
+  }
+
+  private isProduct(item: Product | BasketItem): item is Product {
+    return (item as Product).productBrand !== undefined;
   }
 }
