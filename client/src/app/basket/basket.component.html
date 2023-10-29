@@ -1,1 +1,13 @@
-<p>basket works!</p>
+<div class="container mt-5">
+  <div *ngIf="(basketService.basketSource$ | async) === null">
+    <p>There are no items in your basket</p>
+  </div>
+
+  <div *ngIf="(basketService.basketSource$ | async) as basket">
+    <ul>
+      <li *ngFor="let item of basket.items">
+        {{item.productName}} - {{item.quantity}}
+      </li>
+    </ul>
+  </div>
+</div>
