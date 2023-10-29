@@ -47,7 +47,7 @@ export class BasketService {
     basket.items = this.addOrUpdateItem(basket.items, item, quantity);
     this.setBasket(basket);
   }
-  
+
   private addOrUpdateItem(items: BasketItem[], itemToAdd: BasketItem, quantity: number): BasketItem[] {
     const item = items.find(x => x.id === itemToAdd.id);
     if (item) item.quantity += quantity;
