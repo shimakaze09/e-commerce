@@ -1,6 +1,7 @@
 ﻿using System.Security.Claims;
 using API.Dtos;
 using API.Errors;
+using API.Extensions;
 using AutoMapper;
 using Core.Entities.Identity;
 using Core.Interfaces;
@@ -93,9 +94,7 @@ public class AccountController : BaseApiController
     [HttpGet("address")]
     public async Task<ActionResult<Address>> GetUserAddress()
     {
-        var user =
-            await _userManager.FindByEmailAsync(email: User
-                .FindFirstValue(ClaimTypes.Email));
+        var user = await _userManager.FindUserByClaimsPrincipleWithAddress(User);
 
         return user.Address;
     }
