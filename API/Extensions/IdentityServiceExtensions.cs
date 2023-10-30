@@ -41,7 +41,7 @@ public static class IdentityServiceExtensions
                         ValidateAudience = false
                     };
             });
-        
+
         services.AddAuthorization();
 
         return services;
