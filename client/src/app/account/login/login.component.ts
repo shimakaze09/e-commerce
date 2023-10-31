@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AccountService} from "../account.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -13,13 +14,12 @@ export class LoginComponent {
     password: new FormControl('', Validators.required)
   })
 
-  constructor(private accountService: AccountService) {
+  constructor(private accountService: AccountService, private router: Router) {
   }
 
   onSubmit() {
     this.accountService.login(this.loginForm.value).subscribe({
-      next: () => console.log('user logged in'),
-      error: error => console.log(error)
+      next: () => this.router.navigateByUrl('/shop')
     })
   }
 
