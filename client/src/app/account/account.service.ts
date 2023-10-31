@@ -1,9 +1,9 @@
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
+import {Router} from '@angular/router';
+import {map, of, ReplaySubject} from 'rxjs';
 import {environment} from 'src/environments/environment';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {map, of, ReplaySubject} from "rxjs";
-import {User} from "../shared/models/user";
-import {Router} from "@angular/router";
+import {User} from '../shared/models/user';
 
 @Injectable({
   providedIn: 'root'
