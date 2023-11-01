@@ -33,6 +33,6 @@ public class MappingProfiles : Profile
             .ForMember(d => d.PictureUrl,
                 o => o.MapFrom(s => s.ItemOrdered.PictureUrl))
             .ForMember(d => d.PictureUrl,
-                o => o.MapFrom(s=>s.ItemOrdered.PictureUrl));
+                o => o.MapFrom<OrderItemUrlResolver>());
     }
 }
