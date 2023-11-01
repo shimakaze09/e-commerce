@@ -26,6 +26,7 @@ public static class ApplicationServicesExtension
         services.AddScoped<IBasketRepository, BasketRepository>();
         services.AddScoped<IProductRepository, ProductRepository>();
         services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<IOrderService, OrderService>();
         services.AddScoped(typeof(IGenericRepository<>),
             typeof(GenericRepository<>));
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
