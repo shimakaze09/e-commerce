@@ -48,7 +48,8 @@ public class OrdersController : BaseApiController
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<OrderToReturnDto>> GetOrderByIdForUser(int id)
+    public async Task<ActionResult<OrderToReturnDto>>
+        GetOrderByIdForUser(int id)
     {
         var email = User.RetrieveEmailFromPrincipal();
 
@@ -56,7 +57,7 @@ public class OrdersController : BaseApiController
 
         if (order == null) return NotFound(new ApiResponse(404));
 
-        return _mapper.Map<Order,OrderToReturnDto>(order);
+        return _mapper.Map<Order, OrderToReturnDto>(order);
     }
 
     [HttpGet("deliveryMethods")]
