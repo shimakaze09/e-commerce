@@ -13,6 +13,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getAddressFormValues()
   }
 
   checkoutForm = this.fb.group({
@@ -31,4 +32,12 @@ export class CheckoutComponent implements OnInit {
       nameOnCard: ['', Validators.required]
     })
   })
+
+  getAddressFormValues() {
+    this.accountService.getUserAddress().subscribe({
+      next: address => {
+        address && this.checkoutForm.get('addressForm')?.patchValue(address)
+      }
+    })
+  }
 }
