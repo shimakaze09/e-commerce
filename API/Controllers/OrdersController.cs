@@ -1,4 +1,4 @@
-﻿using API.Dtos;
+using API.Dtos;
 using API.Errors;
 using API.Extensions;
 using AutoMapper;
@@ -31,14 +31,15 @@ public class OrdersController : BaseApiController
         var order = await _orderService.CreateOrderAsync(email,
             orderDto.DeliveryMethodId, orderDto.BasketId, address);
 
-        if (order is null)
+        if (order == null)
             return BadRequest(new ApiResponse(400, "Problem creating order"));
 
         return Ok(order);
     }
 
     [HttpGet]
-    public async Task<ActionResult<IReadOnlyList<OrderDto>>> GetOrdersForUser()
+    public async Task<ActionResult<IReadOnlyList<OrderToReturnDto>>>
+        GetOrdersForUser()
     {
         var email = User.RetrieveEmailFromPrincipal();
 
@@ -57,7 +58,7 @@ public class OrdersController : BaseApiController
 
         if (order == null) return NotFound(new ApiResponse(404));
 
-        return _mapper.Map<Order, OrderToReturnDto>(order);
+        return _mapper.Map<OrderToReturnDto>(order);
     }
 
     [HttpGet("deliveryMethods")]

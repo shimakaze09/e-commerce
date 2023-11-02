@@ -1,4 +1,4 @@
-﻿using System.Text;
+using System.Text;
 using Core.Entities.Identity;
 using Infrastructure.Data.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -41,6 +41,7 @@ public static class IdentityServiceExtensions
                         ValidateAudience = false
                     };
             });
+
 
         services.AddAuthorization();
 

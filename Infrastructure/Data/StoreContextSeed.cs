@@ -1,6 +1,7 @@
-﻿using System.Text.Json;
+using System.Text.Json;
 using Core.Entities;
 using Core.Entities.OrderAggregate;
+using Infrastructure.Data;
 
 namespace Infrastructure.Data;
 
@@ -10,27 +11,26 @@ public class StoreContextSeed
     {
         if (!context.ProductBrands.Any())
         {
-            var brandData =
-                await File.ReadAllTextAsync(
-                    "../Infrastructure/Data/SeedData/brands.json");
+            var brandsData =
+                File.ReadAllText("../Infrastructure/Data/SeedData/brands.json");
             var brands =
-                JsonSerializer.Deserialize<List<ProductBrand>>(brandData);
+                JsonSerializer.Deserialize<List<ProductBrand>>(brandsData);
             context.ProductBrands.AddRange(brands);
         }
 
         if (!context.ProductTypes.Any())
         {
-            var typeData =
-                await File.ReadAllTextAsync(
-                    "../Infrastructure/Data/SeedData/types.json");
-            var types = JsonSerializer.Deserialize<List<ProductType>>(typeData);
+            var typesData =
+                File.ReadAllText("../Infrastructure/Data/SeedData/types.json");
+            var types =
+                JsonSerializer.Deserialize<List<ProductType>>(typesData);
             context.ProductTypes.AddRange(types);
         }
 
         if (!context.Products.Any())
         {
             var productsData =
-                await File.ReadAllTextAsync(
+                File.ReadAllText(
                     "../Infrastructure/Data/SeedData/products.json");
             var products =
                 JsonSerializer.Deserialize<List<Product>>(productsData);

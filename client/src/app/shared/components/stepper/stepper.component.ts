@@ -1,5 +1,5 @@
+import {CdkStepper} from '@angular/cdk/stepper';
 import {Component, Input, OnInit} from '@angular/core';
-import {CdkStepper} from "@angular/cdk/stepper";
 
 @Component({
   selector: 'app-stepper',

@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
-import {BasketService} from "./basket.service";
-import {BasketItem} from "../shared/models/basket";
+import {BasketItem} from '../shared/models/basket';
+import {BasketService} from './basket.service';
 
 @Component({
   selector: 'app-basket',
@@ -8,6 +8,7 @@ import {BasketItem} from "../shared/models/basket";
   styleUrls: ['./basket.component.scss']
 })
 export class BasketComponent {
+
   constructor(public basketService: BasketService) {
   }
 
@@ -18,4 +19,5 @@ export class BasketComponent {
   removeItem(event: { id: number, quantity: number }) {
     this.basketService.removeItemFromBasket(event.id, event.quantity);
   }
+
 }

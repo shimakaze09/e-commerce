@@ -1,6 +1,7 @@
-﻿using System.Collections;
+using System.Collections;
 using Core.Entities;
 using Core.Interfaces;
+using Infrastructure.Data;
 
 namespace Infrastructure.Data;
 
@@ -12,6 +13,11 @@ public class UnitOfWork : IUnitOfWork
     public UnitOfWork(StoreContext context)
     {
         _context = context;
+    }
+
+    public async Task<int> Complete()
+    {
+        return await _context.SaveChangesAsync();
     }
 
     public void Dispose()
@@ -36,10 +42,5 @@ public class UnitOfWork : IUnitOfWork
         }
 
         return (IGenericRepository<TEntity>)_repositories[type];
-    }
-
-    public async Task<int> Complete()
-    {
-        return await _context.SaveChangesAsync();
     }
 }

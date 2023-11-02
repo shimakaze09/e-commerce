@@ -13,7 +13,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAddressFormValues()
+    this.getAddressFormValues();
   }
 
   checkoutForm = this.fb.group({
@@ -40,4 +40,5 @@ export class CheckoutComponent implements OnInit {
       }
     })
   }
+
 }

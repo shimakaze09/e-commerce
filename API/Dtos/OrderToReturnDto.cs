@@ -1,4 +1,4 @@
-﻿using Core.Entities.OrderAggregate;
+using Core.Entities.OrderAggregate;
 
 namespace API.Dtos;
 

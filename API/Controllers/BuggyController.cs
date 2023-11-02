@@ -1,4 +1,4 @@
-﻿using API.Errors;
+using API.Errors;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -48,7 +48,7 @@ public class BuggyController : BaseApiController
     }
 
     [HttpGet("badrequest/{id}")]
-    public ActionResult GetBadRequest(int id)
+    public ActionResult GetNotFoundRequest(int id)
     {
         return Ok();
     }
