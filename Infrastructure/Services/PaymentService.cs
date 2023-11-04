@@ -1,6 +1,7 @@
 ﻿using Core.Entities;
 using Core.Entities.OrderAggregate;
 using Core.Interfaces;
+using Core.Specifications;
 using Microsoft.Extensions.Configuration;
 using Stripe;
 using Product = Core.Entities.Product;
@@ -13,8 +14,7 @@ public class PaymentService : IPaymentService
     private readonly IBasketRepository _basketRepository;
     private readonly IConfiguration _config;
 
-    public PaymentService(IUnitOfWork unitOfWork,
-        IBasketRepository basketRepository,
+    public PaymentService(IUnitOfWork unitOfWork, IBasketRepository basketRepository,
         IConfiguration config)
     {
         _config = config;
@@ -22,8 +22,7 @@ public class PaymentService : IPaymentService
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<CustomerBasket> CreateOrUpdatePaymentIntent(
-        string basketId)
+    public async Task<CustomerBasket> CreateOrUpdatePaymentIntent(string basketId)
     {
         StripeConfiguration.ApiKey = _config["StripeSettings:SecretKey"];
 
@@ -42,29 +41,21 @@ public class PaymentService : IPaymentService
 
         foreach (var item in basket.Items)
         {
-            var productItem = await _unitOfWork.Repository<Product>()
-                .GetByIdAsync(item.Id);
-            if (item.Price != productItem.Price)
-            {
-                item.Price = productItem.Price;
-            }
+            var productItem = await _unitOfWork.Repository<Product>().GetByIdAsync(item.Id);
+            if (item.Price != productItem.Price) item.Price = productItem.Price;
         }
 
         var service = new PaymentIntentService();
-
-        PaymentIntent intent;
 
         if (string.IsNullOrEmpty(basket.PaymentIntentId))
         {
             var options = new PaymentIntentCreateOptions
             {
-                Amount =
-                    (long)basket.Items.Sum(i => i.Quantity * (i.Price * 100)) +
-                    (long)shippingPrice * 100,
+                Amount = (long)basket.Items.Sum(i => i.Quantity * i.Price * 100) + (long)shippingPrice * 100,
                 Currency = "usd",
                 PaymentMethodTypes = new List<string> { "card" }
             };
-            intent = await service.CreateAsync(options);
+            var intent = await service.CreateAsync(options);
             basket.PaymentIntentId = intent.Id;
             basket.ClientSecret = intent.ClientSecret;
         }
@@ -72,9 +63,7 @@ public class PaymentService : IPaymentService
         {
             var options = new PaymentIntentUpdateOptions
             {
-                Amount =
-                    (long)basket.Items.Sum(i => i.Quantity * (i.Price * 100)) +
-                    (long)shippingPrice * 100
+                Amount = (long)basket.Items.Sum(i => i.Quantity * i.Price * 100) + (long)shippingPrice * 100
             };
             await service.UpdateAsync(basket.PaymentIntentId, options);
         }
@@ -82,5 +71,31 @@ public class PaymentService : IPaymentService
         await _basketRepository.UpdateBasketAsync(basket);
 
         return basket;
+    }
+
+    public async Task<Order> UpdateOrderPaymentFailed(string paymentIntentId)
+    {
+        var spec = new OrderByPaymentIntentIdSpecification(paymentIntentId);
+        var order = await _unitOfWork.Repository<Order>().GetEntityWithSpec(spec);
+
+        if (order == null) return null;
+
+        order.Status = OrderStatus.PaymentFailed;
+        await _unitOfWork.Complete();
+
+        return order;
+    }
+
+    public async Task<Order> UpdateOrderPaymentSucceeded(string paymentIntentId)
+    {
+        var spec = new OrderByPaymentIntentIdSpecification(paymentIntentId);
+        var order = await _unitOfWork.Repository<Order>().GetEntityWithSpec(spec);
+
+        if (order == null) return null;
+
+        order.Status = OrderStatus.PaymentReceived;
+        await _unitOfWork.Complete();
+
+        return order;
     }
 }
