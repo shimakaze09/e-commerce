@@ -548,4 +548,7 @@ fabric.properties
 .history
 .ionide
 
+# Application settings
+*/appsettings.json
+
 # End of https://www.toptal.com/developers/gitignore/api/jetbrains+all,visualstudiocode,database,csharp,angular,dotnetcore
