@@ -4,16 +4,16 @@ import {CheckoutSuccessComponent} from './checkout-success/checkout-success.comp
 import {CheckoutComponent} from './checkout.component';
 
 const routes: Routes = [
-  {path: '', component: CheckoutComponent},
-  {path: 'success', component: CheckoutSuccessComponent},
+    {path: '', component: CheckoutComponent},
+    {path: 'success', component: CheckoutSuccessComponent},
 ]
 
 @NgModule({
-  declarations: [],
-  imports: [
-    RouterModule.forChild(routes)
-  ],
-  exports: [RouterModule]
+    declarations: [],
+    imports: [
+        RouterModule.forChild(routes)
+    ],
+    exports: [RouterModule]
 })
 export class CheckoutRoutingModule {
 }
