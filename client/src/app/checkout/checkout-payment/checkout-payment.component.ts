@@ -72,6 +72,13 @@ export class CheckoutPaymentComponent implements OnInit {
     })
   }
 
+  get paymentFormComplete() {
+    return this.checkoutForm?.get('paymentForm')?.valid
+      && this.cardNumberComplete
+      && this.cardExpiryComplete
+      && this.cardCvcComplete
+  }
+
   async submitOrder() {
     this.loading = true;
     const basket = this.basketService.getCurrentBasketValue();
