@@ -51,6 +51,14 @@ export class ShopService {
         )
     }
 
+    setShopParams(params: ShopParams) {
+        this.shopParams = params;
+    }
+
+    getShopParams() {
+        return this.shopParams;
+    }
+
     getProduct(id: number) {
         const product = [...this.productCache.values()]
             .reduce((acc, paginatedResult) => {
