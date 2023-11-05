@@ -22,6 +22,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <Folder Include="Content\" />
         <Folder Include="wwwroot\"/>
     </ItemGroup>
 

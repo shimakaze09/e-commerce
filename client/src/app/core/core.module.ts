@@ -12,29 +12,29 @@ import {NgxSpinnerModule} from 'ngx-spinner';
 import {SharedModule} from '../shared/shared.module';
 
 @NgModule({
-    declarations: [
-        NavBarComponent,
-        TestErrorComponent,
-        NotFoundComponent,
-        ServerErrorComponent,
-        SectionHeaderComponent
-    ],
-    imports: [
-        CommonModule,
-        RouterModule,
-        ToastrModule.forRoot({
-            positionClass: 'toast-bottom-right',
-            preventDuplicates: true
-        }),
-        BreadcrumbModule,
-        NgxSpinnerModule,
-        SharedModule
-    ],
-    exports: [
-        NavBarComponent,
-        SectionHeaderComponent,
-        NgxSpinnerModule
-    ]
+  declarations: [
+    NavBarComponent,
+    TestErrorComponent,
+    NotFoundComponent,
+    ServerErrorComponent,
+    SectionHeaderComponent
+  ],
+  imports: [
+    CommonModule,
+    RouterModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true
+    }),
+    BreadcrumbModule,
+    NgxSpinnerModule,
+    SharedModule
+  ],
+  exports: [
+    NavBarComponent,
+    SectionHeaderComponent,
+    NgxSpinnerModule
+  ]
 })
 export class CoreModule {
 }

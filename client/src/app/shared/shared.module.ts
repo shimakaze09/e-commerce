@@ -14,37 +14,37 @@ import {BasketSummaryComponent} from './basket-summary/basket-summary.component'
 import {RouterModule} from '@angular/router';
 
 @NgModule({
-    declarations: [
-        PagingHeaderComponent,
-        PagerComponent,
-        OrderTotalsComponent,
-        TextInputComponent,
-        StepperComponent,
-        BasketSummaryComponent
-    ],
-    imports: [
-        CommonModule,
-        PaginationModule.forRoot(),
-        CarouselModule.forRoot(),
-        ReactiveFormsModule,
-        FormsModule,
-        BsDropdownModule.forRoot(),
-        CdkStepperModule,
-        RouterModule
-    ],
-    exports: [
-        PaginationModule,
-        PagingHeaderComponent,
-        PagerComponent,
-        CarouselModule,
-        OrderTotalsComponent,
-        ReactiveFormsModule,
-        BsDropdownModule,
-        TextInputComponent,
-        StepperComponent,
-        CdkStepperModule,
-        BasketSummaryComponent
-    ]
+  declarations: [
+    PagingHeaderComponent,
+    PagerComponent,
+    OrderTotalsComponent,
+    TextInputComponent,
+    StepperComponent,
+    BasketSummaryComponent
+  ],
+  imports: [
+    CommonModule,
+    PaginationModule.forRoot(),
+    CarouselModule.forRoot(),
+    ReactiveFormsModule,
+    FormsModule,
+    BsDropdownModule.forRoot(),
+    CdkStepperModule,
+    RouterModule
+  ],
+  exports: [
+    PaginationModule,
+    PagingHeaderComponent,
+    PagerComponent,
+    CarouselModule,
+    OrderTotalsComponent,
+    ReactiveFormsModule,
+    BsDropdownModule,
+    TextInputComponent,
+    StepperComponent,
+    CdkStepperModule,
+    BasketSummaryComponent
+  ]
 })
 export class SharedModule {
 }
