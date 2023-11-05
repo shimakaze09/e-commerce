@@ -14,7 +14,7 @@ public static class ApplicationServicesExtensions
         this IServiceCollection services, IConfiguration config)
     {
         services.AddSingleton<IResponseCacheService, ResponseCacheService>();
-        services.AddDbContext<StoreContext>(opt => { opt.UseSqlite(config.GetConnectionString("DefaultConnection")); });
+        services.AddDbContext<StoreContext>(opt => { opt.UseNpgsql(config.GetConnectionString("DefaultConnection")); });
         services.AddSingleton<IConnectionMultiplexer>(c =>
         {
             var options =
